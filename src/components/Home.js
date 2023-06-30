@@ -6,10 +6,11 @@ import Movies from './Movies';
 import New from './New';
 import Originals from './Originals';
 import Trending from './Trending';
-import Viewers from './Viewers';
 import db from "../firebase";
 import { useDispatch } from "react-redux";
 import { setMovies } from '../features/movie/movieSlice';
+import ProductionHouse from './ProductionHouse';
+import GenreMovieList from './GenreMovieList';
 
 
 
@@ -84,12 +85,8 @@ const Home = () => {
 
     <Container>
       <ImgSlider />
-      <Viewers />
-      <New />
-      <Movies />
-      <Trending />
-      <Originals />
-      
+      <ProductionHouse/>
+      <GenreMovieList/>
     </Container>
   )
 }

@@ -6,13 +6,13 @@ import { getStorage, ref } from "firebase/storage";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyCAaAz2cpZdDeJuJJg9jMpYzZb-j9xG6Tc",
-  authDomain: "disney-plus-clone-976a1.firebaseapp.com",
-  projectId: "disney-plus-clone-976a1",
-  storageBucket: "disney-plus-clone-976a1.appspot.com",
-  messagingSenderId: "329443678777",
-  appId: "1:329443678777:web:4761ce6b36ce2c73cfcbe8",
-  measurementId: "G-4YJEJZWW11"
+  apiKey: "AIzaSyCaXJI46PxBshuk48PJGWZILTKpBN8bgC4",
+  authDomain: "disney-clone-bk0.firebaseapp.com",
+  projectId: "disney-clone-bk0",
+  storageBucket: "disney-clone-bk0.appspot.com",
+  messagingSenderId: "958553568474",
+  appId: "1:958553568474:web:f9f123806afaba4b92a1e3",
+  measurementId: "G-TG6HPDGJ5G"
 };
 
   const firebaseApp = firebase.initializeApp(firebaseConfig);

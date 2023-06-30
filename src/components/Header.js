@@ -1,16 +1,153 @@
-import { useEffect } from "react";
+// import { useEffect } from "react";
+// import styled from "styled-components";
+// import { useDispatch, useSelector } from "react-redux";
+// import { useHistory } from "react-router-dom";
+// import { auth, provider } from "../firebase";
+// import './Header.css'
+// import {
+//   selectUserName,
+//   selectUserPhoto,
+//   setUserLoginDetails,
+// } from "../features/movie/UserReducers";
+// import { setSignOutState } from "../features/movie/UserReducers";
+
+// const Header = (props) => {
+//   const dispatch = useDispatch();
+//   const history = useHistory();
+//   const userName = useSelector(selectUserName);
+//   const userPhoto = useSelector(selectUserPhoto);
+
+//   useEffect(() => {
+//     auth.onAuthStateChanged(async (user) => {
+//       if (user) {
+//         setUser(user);
+//         history.push("/home");
+//       }
+//     });
+//   }, [userName]);
+
+//   const handleAuth = () => {
+//     if (!userName) {
+//       auth
+//         .signInWithPopup(provider)
+//         .then((result) => {
+//           setUser(result.user);
+//         })
+//         .catch((error) => {
+//           alert(error.message);
+//         });
+//     } else if (userName) {
+//       auth
+//         .signOut()
+//         .then(() => {
+//           dispatch(setSignOutState());
+//           history.push("/");
+//         })
+//         .catch((err) => alert(err.message));
+//     }
+//   };
+
+//   const setUser = (user) => {
+//     dispatch(
+//       setUserLoginDetails({
+//         name: user.displayName,
+//         email: user.email,
+//         photo: user.photoURL,
+//       })
+//     );
+//   };
+
+//   return (
+//     <Nav>
+//       <Logo>
+//         <img src="/images/logo.svg" alt="Disney+" />
+//       </Logo>
+
+//       {!userName ? (
+//         <Login onClick={handleAuth}>Login</Login>
+//       ) : (
+//         <>
+//           <NavMenu>
+//             <a href="/home" className="a_header">
+//               <img
+//                 src="https://drive.google.com/uc?id=1i-N5_YQwBPv1eSRm-EPQElJyzhCmecm8"
+//                 alt="HOME"
+//               />
+//               <span>HOME</span>
+//             </a>
+//             <a className="a_header">
+//               <img
+//                 src="https://drive.google.com/uc?id=1MqJm9uDvoXk1AnHhC3e9XKgTo8W4onp2"
+//                 alt="SEARCH"
+//               />
+//               <span>SEARCH</span>
+//             </a>
+//             <a>
+//               <img
+//                 src="https://drive.google.com/uc?id=12zOt-Z2xn-VWVrkbykllrcacWOauv6Um"
+//                 alt="WATCHLIST"
+//               />
+//               <span>WATCHLIST</span>
+//             </a>
+//             <a>
+//               <img
+//                 src="https://drive.google.com/uc?id=13ETnvscikTtrDTkxuJksVJ4gS_NvDNk2"
+//                 alt="ORIGINALS"
+//               />
+//               <span>ORIGINALS</span>
+//             </a>
+//             <a>
+//               <img
+//                 src="https://drive.google.com/uc?id=1kw-yU2u1rg2Fuy5RTb7--GjnzZJ10XbG"
+//                 alt="MOVIES"
+//               />
+//               <span>MOVIES</span>
+//             </a>
+//             <a>
+//               <img
+//                 src="https://drive.google.com/uc?id=1XVwekS9Me_IDwMQ4L0uNGp3onymHxpey"
+//                 alt="SERIES"
+//               />
+//               <span>SERIES</span>
+//             </a>
+//           </NavMenu>
+//           <SignOut>
+//             <UserImg src={userPhoto} alt={userName} />
+//             <DropDown>
+//               <span onClick={handleAuth}>Sign out</span>
+//             </DropDown>
+//           </SignOut>
+//         </>
+//       )}
+//     </Nav>
+//   );
+// };
+// ####################################################
+
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { auth, provider } from "../firebase";
+import "./Header.css";
 import {
   selectUserName,
   selectUserPhoto,
   setUserLoginDetails,
-
 } from "../features/movie/UserReducers";
-import { setSignOutState } from "../features/movie/UserReducers";
 
+import logo from "./../assets/Images/logo.png";
+import {
+  HiHome,
+  HiMagnifyingGlass,
+  HiStar,
+  HiPlayCircle,
+  HiTv,
+} from "react-icons/hi2";
+import { HiPlus, HiDotsVertical } from "react-icons/hi";
+import HeaderItem from "./HeaderItem";
+
+import { setSignOutState } from "../features/movie/UserReducers";
 
 const Header = (props) => {
   const dispatch = useDispatch();
@@ -58,42 +195,78 @@ const Header = (props) => {
     );
   };
 
+  const [toggle, setToggle] = useState(false);
+  const menu = [
+    {
+      name: "HOME",
+      icon: HiHome,
+    },
+    {
+      name: "SEARCH",
+      icon: HiMagnifyingGlass,
+    },
+    {
+      name: "WATCH LIST",
+      icon: HiPlus,
+    },
+    {
+      name: "ORIGINALS",
+      icon: HiStar,
+    },
+    {
+      name: "MOVIES",
+      icon: HiPlayCircle,
+    },
+    {
+      name: "SERIES",
+      icon: HiTv,
+    },
+  ];
+
   return (
     <Nav>
-      <Logo>
+      {/* <Logo>
         <img src="/images/logo.svg" alt="Disney+" />
-      </Logo>
+      </Logo> */}
 
       {!userName ? (
         <Login onClick={handleAuth}>Login</Login>
       ) : (
         <>
-          <NavMenu>
-            <a href="/home">
-              <img src='https://drive.google.com/uc?id=1i-N5_YQwBPv1eSRm-EPQElJyzhCmecm8' alt="HOME" />
-              <span>HOME</span>
-            </a>
-            <a>
-              <img src='https://drive.google.com/uc?id=1MqJm9uDvoXk1AnHhC3e9XKgTo8W4onp2'  alt="SEARCH" />
-              <span>SEARCH</span>
-            </a>
-            <a>
-              <img src='https://drive.google.com/uc?id=12zOt-Z2xn-VWVrkbykllrcacWOauv6Um'alt="WATCHLIST" />
-              <span>WATCHLIST</span>
-            </a>
-            <a>
-              <img src='https://drive.google.com/uc?id=13ETnvscikTtrDTkxuJksVJ4gS_NvDNk2'  alt="ORIGINALS" />
-              <span>ORIGINALS</span>
-            </a>
-            <a>
-              <img src='https://drive.google.com/uc?id=1kw-yU2u1rg2Fuy5RTb7--GjnzZJ10XbG'  alt="MOVIES" />
-              <span>MOVIES</span>
-            </a>
-            <a>
-              <img src='https://drive.google.com/uc?id=1XVwekS9Me_IDwMQ4L0uNGp3onymHxpey'  alt="SERIES" />
-              <span>SERIES</span>
-            </a>
-          </NavMenu>
+          <div className="flex  gap-2 items-center">
+            <img
+              src={logo}
+              className="w-[80px] 
+        md:w-[115px] object-cover"
+            />
+            <div className="hidden md:flex gap-8">
+              {menu.map((item) => (
+                <HeaderItem name={item.name} Icon={item.icon} />
+              ))}
+            </div>
+            <div className="flex md:hidden gap-5">
+              {menu.map(
+                (item, index) =>
+                  index < 3 && <HeaderItem name={""} Icon={item.icon} />
+              )}
+              <div className="md:hidden" onClick={() => setToggle(!toggle)}>
+                <HeaderItem name={""} Icon={HiDotsVertical} />
+                {toggle ? (
+                  <div
+                    className=" drop_menu absolute mt-3 bg-[#121212] 
+            border-[1px] border-gray-700 p-3 px-5 py-4 "
+                  >
+                    {menu.map(
+                      (item, index) =>
+                        index > 2 && (
+                          <HeaderItem name={item.name} Icon={item.icon} />
+                        )
+                    )}
+                  </div>
+                ) : null}
+              </div>
+            </div>
+          </div>
           <SignOut>
             <UserImg src={userPhoto} alt={userName} />
             <DropDown>
@@ -106,89 +279,105 @@ const Header = (props) => {
   );
 };
 
+// #######################################################
 const Nav = styled.nav`
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 70px;
-    background-color: #090b13;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 36px;
-    letter-spacing: 16px;
-    z-index: 3;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background-color: #090b13;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 36px;
+  letter-spacing: 16px;
+  z-index: 3;
+`;
+
+const a = styled.a`
+  display: flex;
+  align-items: center;
 `;
 
 const Logo = styled.a`
-    width: 80px;
-    cursor: pointer;
+  width: 80px;
+  cursor: pointer;
 `;
 
 const NavMenu = styled.div`
-align-items: center;
-display: flex;
-flex-flow: row nowrap;
-height: 100%;
-justify-content: flex-end;
-margin: 0px;
-padding: 0px;
-position: relative;
-margin-right: auto;
-margin-left: 25px;
-a {
-  cursor:pointer;
-  display: flex;
   align-items: center;
-  padding: 0 12px;
-  img {
-    height: 20px;
-    min-width: 20px;
-    width: 20px;
-    z-index: auto;
-  }
-  span {
-    color: rgb(249, 249, 249);
-    font-size: 13px;
-    letter-spacing: 1.42px;
-    line-height: 1.08;
-    padding: 2px 0px;
-    white-space: nowrap;
-    position: relative;
-    &:before {
-      background-color: rgb(249, 249, 249);
-      border-radius: 0px 0px 4px 4px;
-      bottom: -6px;
-      content: "";
-      height: 2px;
-      left: 0px;
-      opacity: 0;
-      position: absolute;
-      right: 0px;
-      transform-origin: left center;
-      transform: scaleX(0);
-      transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
-      visibility: hidden;
-      width: auto;
+  display: flex;
+  flex-flow: row nowrap;
+  height: 100%;
+  justify-content: flex-end;
+  margin: 0px;
+  padding: 0px;
+  position: relative;
+  margin-right: auto;
+  margin-left: 25px;
+  a {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    img {
+      height: 20px;
+      min-width: 20px;
+      width: 20px;
+      z-index: auto;
     }
-  }
-  &:hover {
-    span:before {
-      transform: scaleX(1);
-      visibility: visible;
-      opacity: 1 !important;
+    span {
+      color: rgb(249, 249, 249);
+      font-size: 13px;
+      letter-spacing: 1.42px;
+      line-height: 1.08;
+      padding: 2px 0px;
+      white-space: nowrap;
+      position: relative;
+      ${
+        "" /* &:before {
+        background-color: rgb(249, 249, 249);
+        border-radius: 0px 0px 4px 4px;
+        bottom: -6px;
+        content: "";
+        height: 2px;
+        left: 0px;
+        opacity: 0;
+        position: absolute;
+        right: 0px;
+        transform-origin: left center;
+        transform: scaleX(0);
+        transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
+        visibility: hidden;
+        width: auto;
+      } */
+      }
     }
+    ${
+      "" /* &:hover {
+      span:before {
+        transform: scaleX(1);
+        visibility: visible;
+        opacity: 1 !important;
+      }
+    } */
+    }
+
   }
-}
-/* @media (max-width: 768px) {
+  a:hover {
+        text-decoration-line: underline;
+        text-underline-offset: 8px;
+        margin-bottom: 0.5rem
+        color: white;
+      }
+  /* @media (max-width: 768px) {
   display: none;
 } */
-
 `;
 
 const Login = styled.a`
-cursor: pointer;
+  cursor: pointer;
   background-color: rgba(0, 0, 0, 0.6);
   padding: 8px 16px;
   text-transform: uppercase;
@@ -205,10 +394,11 @@ cursor: pointer;
 `;
 
 const UserImg = styled.img`
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    cursor: pointer;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  cursor: pointer;
+  object-fit: cover;
 `;
 
 const DropDown = styled.div`
@@ -227,29 +417,28 @@ const DropDown = styled.div`
 `;
 
 const SignOut = styled.div`
-position: relative;
-height: 48px;
-width: 48px;
-display: flex;
-cursor: pointer;
-align-items: center;
-justify-content: center;
-${UserImg} {
-  border-radius: 50%;
-  width: 100%;
-  height: 100%;
-}
-&:hover {
-  ${DropDown} {
-    opacity: 1;
-    transition-duration: 1s;
+  position: relative;
+  height: 48px;
+  width: 48px;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  ${UserImg} {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
   }
-}
+  &:hover {
+    ${DropDown} {
+      opacity: 1;
+      transition-duration: 1s;
+    }
+  }
 `;
 
 const UserImage = styled.img`
   height: 100%;
 `;
-
 
 export default Header;

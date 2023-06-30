@@ -43,6 +43,10 @@ margin-bottom: 0;
 `;
 
 const Container = styled.div`
+display:flex;
+flex-direction: column;
+align-items: center;
+gap:0.5rem;
 width: 95%;
 margin: 0 auto;
 `;

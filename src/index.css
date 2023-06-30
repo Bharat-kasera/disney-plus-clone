@@ -1,9 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+  overflow-x: hidden;
+  /* overflow-y: hidden; */
+}
+
 html {
   scroll-behavior: smooth;
 }
 
 * {
   box-sizing: border-box;
+
+
 }
 
 body {
